@@ -27,26 +27,26 @@ Analisis dilakukan untuk menjawab beberapa pertanyaan utama, seperti:
 Jalankan query SQL analisis, contoh:
 
 --- 1. Top 10 user dengan transaksi terbanyak
-SELECT 
-    u.id AS client_id,
-    COUNT(t.id) AS total_transactions,
-    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent
-FROM users_stg u
-JOIN transactions_stg t ON u.id = t.client_id
-GROUP BY u.id
-ORDER BY total_spent DESC
-LIMIT 10;
+SELECT <br>
+    u.id AS client_id, <br>
+    COUNT(t.id) AS total_transactions, <br>
+    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent <br>
+FROM users_stg u <br>
+JOIN transactions_stg t ON u.id = t.client_id <br>
+GROUP BY u.id <br>
+ORDER BY total_spent DESC <br>
+LIMIT 10; <br>
 
 --- 2. Analisis brand kartu
-SELECT 
-    c.card_brand,
-    COUNT(t.id) AS total_transactions,
-    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent,
-    ROUND(AVG(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)), 2) AS avg_transaction_value
-FROM transactions_stg t
-JOIN cards_stg c ON t.card_id = c.id
-GROUP BY c.card_brand
-ORDER BY total_spent DESC;
+SELECT <br>
+    c.card_brand, <br>
+    COUNT(t.id) AS total_transactions, <br>
+    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent, <br>
+    ROUND(AVG(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)), 2) AS avg_transaction_value <br>
+FROM transactions_stg t <br>
+JOIN cards_stg c ON t.card_id = c.id <br>
+GROUP BY c.card_brand <br>
+ORDER BY total_spent DESC; <br>
 
 --- 3. Perbandingan transaksi berdasarkan gender
 SELECT 
