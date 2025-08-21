@@ -49,13 +49,13 @@ GROUP BY c.card_brand <br>
 ORDER BY total_spent DESC; <br>
 
 --- 3. Perbandingan transaksi berdasarkan gender
-SELECT 
-    u.gender,
-    COUNT(t.id) AS total_transactions,
-    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent,
-    ROUND(AVG(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)), 2) AS avg_transaction_value
-FROM users_stg u
-JOIN transactions_stg t ON u.id = t.client_id
-GROUP BY u.gender;
+SELECT <br>
+    u.gender, <br>
+    COUNT(t.id) AS total_transactions, <br>
+    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent, <br>
+    ROUND(AVG(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)), 2) AS avg_transaction_value <br>
+FROM users_stg u <br>
+JOIN transactions_stg t ON u.id = t.client_id <br>
+GROUP BY u.gender; <br>
 
 Export hasil query (jika diperlukan) ke .csv untuk divisualisasikan di Power BI.
