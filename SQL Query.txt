@@ -1,0 +1,33 @@
+1. Top 10 user dengan transaksi terbanyak
+SELECT 
+    u.id AS client_id,
+    COUNT(t.id) AS total_transactions,
+    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent
+FROM users_stg u
+JOIN transactions_stg t ON u.id = t.client_id
+GROUP BY u.id
+ORDER BY total_spent DESC
+LIMIT 10;
+
+2. Analisis brand kartu
+SELECT 
+    c.card_brand,
+    COUNT(t.id) AS total_transactions,
+    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent,
+    ROUND(AVG(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)), 2) AS avg_transaction_value
+FROM transactions_stg t
+JOIN cards_stg c ON t.card_id = c.id
+GROUP BY c.card_brand
+ORDER BY total_spent DESC;
+
+3. Perbandingan transaksi berdasarkan gender
+SELECT 
+    u.gender,
+    COUNT(t.id) AS total_transactions,
+    SUM(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)) AS total_spent,
+    ROUND(AVG(CAST(REPLACE(REPLACE(t.amount, '$', ''), ',', '') AS NUMERIC)), 2) AS avg_transaction_value
+FROM users_stg u
+JOIN transactions_stg t ON u.id = t.client_id
+GROUP BY u.gender;
+
+
